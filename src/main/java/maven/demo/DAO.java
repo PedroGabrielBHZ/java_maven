@@ -18,7 +18,7 @@ public class DAO {
 	public boolean connect() {
 
 		// Connection data
-		int port = 5432;
+		int port = 15432;
 		String driver = "org.postgresql.Driver";
 		String domain = "localhost";
 		String database = "teste";
@@ -41,9 +41,9 @@ public class DAO {
 		return connectionSuccesful;
 	}
 
-
 	/**
 	 * Close connection.
+	 *
 	 * @return connection closed succesfully.
 	 */
 	public boolean close() {
@@ -126,11 +126,7 @@ public class DAO {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("FUCK ME");
-
 		DAO dao = new DAO();
-
 		dao.connect();
-
 	}
 }
