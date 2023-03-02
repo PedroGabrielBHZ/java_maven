@@ -7,8 +7,6 @@ services:
       POSTGRES_PASSWORD: "Postgres2023!"
     ports:
       - "15432:5432"
-    volumes:
-      - /home/pedro/Desenvolvimento/Docker-Compose/PostgreSQL:/var/lib/postgresql/data
     networks:
       - postgres-compose-network
 
