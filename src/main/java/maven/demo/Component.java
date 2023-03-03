@@ -1,11 +1,17 @@
 package maven.demo;
 
+/**
+ * Component model class.
+ */
 public class Component {
+
+	// Data model attributes
 	private int id;
 	private String name;
 	private float price;
 	private int stock;
 
+	// Default constructor
 	public Component() {
 		this.id = -1;
 		this.name = "";
@@ -13,6 +19,7 @@ public class Component {
 		this.stock = 0;
 	}
 
+	// Constructor
 	public Component(int id, String name, float price, int stock) {
 		this.id = id;
 		this.name = name;
@@ -20,6 +27,9 @@ public class Component {
 		this.stock = stock;
 	}
 
+	/*
+	 * Getters and Setters
+	 */
 	public int getId() {
 		return id;
 	}
@@ -52,6 +62,7 @@ public class Component {
 		this.stock = stock;
 	}
 
+	// String representation of the object
 	@Override
 	public String toString() {
 		return "Component [id=" + id + ", name=" + name + ", price=" + price + ", stock=" + stock + "]";

@@ -4,14 +4,20 @@ import java.sql.*;
 
 public class DAO {
 
+	/**
+	 * Connection to the database.
+	 */
 	private Connection connection;
 
+	/**
+	 * Constructor.
+	 */
 	public DAO() {
 		connection = null;
 	}
 
 	/**
-	 * Connect to database server.
+	 * Connect to the database.
 	 *
 	 * @return boolean representing connection status
 	 */
@@ -27,6 +33,7 @@ public class DAO {
 		String password = "ti@cc";
 		boolean connectionSuccesful = false;
 
+		// Connect to the database
 		try {
 			Class.forName(driver);
 			connection = DriverManager.getConnection(connectionURL, user, password);
@@ -42,9 +49,9 @@ public class DAO {
 	}
 
 	/**
-	 * Close connection.
+	 * Close connection to database server.
 	 *
-	 * @return connection closed succesfully.
+	 * @return boolean representing connection status
 	 */
 	public boolean close() {
 		boolean status = false;
@@ -58,6 +65,12 @@ public class DAO {
 		return status;
 	}
 
+	/**
+	 * Insert a component in the database.
+	 *
+	 * @param component to be inserted.
+	 * @return true if the component was inserted, false otherwise.
+	 */
 	public boolean insertComponent(Component component) {
 		boolean status = false;
 		try {
@@ -73,6 +86,12 @@ public class DAO {
 		return status;
 	}
 
+	/**
+	 * Update a component in the database.
+	 *
+	 * @param component to be updated.
+	 * @return true if the component was updated, false otherwise.
+	 */
 	public boolean updateComponent(Component component) {
 		boolean status = false;
 		try {
@@ -89,6 +108,12 @@ public class DAO {
 		return status;
 	}
 
+	/**
+	 * Delete a component from the database.
+	 *
+	 * @param id of the component to be deleted.
+	 * @return true if the component was deleted, false otherwise.
+	 */
 	public boolean deleteComponent(int id) {
 		boolean status = false;
 		try {
@@ -102,6 +127,11 @@ public class DAO {
 		return status;
 	}
 
+	/**
+	 * Returns an array of all components in the database.
+	 *
+	 * @return an array of all components in the database.
+	 */
 	public Component[] getComponents() {
 		Component[] components = null;
 
@@ -125,8 +155,28 @@ public class DAO {
 		return components;
 	}
 
-	public static void main(String[] args) {
-		DAO dao = new DAO();
-		dao.connect();
+	/**
+	 * Returns a component with the given id. Returns null if no component with the
+	 * given id exists.
+	 *
+	 * @param id the id of the component to return
+	 * @return the component with the given id, or null if no component with the
+	 *         given id exists.
+	 */
+	public Component getComponent(int id) {
+		Component component = null;
+
+		try {
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery("SELECT * FROM component WHERE id = " + id);
+			if (rs.next()) {
+				component = new Component(rs.getInt("id"), rs.getString("name"),
+						rs.getFloat("price"), rs.getInt("stock"));
+			}
+			st.close();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return component;
 	}
 }
